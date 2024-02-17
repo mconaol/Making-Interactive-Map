@@ -1,4 +1,4 @@
-let map 
+let map;
 
 async function getCoords(){
     const pos = await new Promise((resolve, reject) => {
@@ -15,20 +15,19 @@ getCoords().then(coords => {console.log(coords)
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
                                                               
-
-
  console.log(coords)
 });
 
 // Marker
 getCoords().then(coords => {
     if (coords) {
-    var marker = L.marker(coords).addTo(map)
+    let marker = L.marker(coords).addTo(map);
+    marker.bindPopup("You are Here").openPopup();
     }
 })
 
-// business Election
-//Submit Button Function 
+
+//Search Function for business type
 
 document.getElementById('submit').addEventListener('click', function() {
     selectBusinessType()
@@ -40,16 +39,21 @@ async function selectBusinessType (){
         method: 'GET',
         headers: {
         Accept: 'application/json',
-        Authorization: '<fsq3P8wo1bQwkPgXoTJP56jjL/1bUtKoWC5BYf2RGYhvDKg=>'
+        Authorization: 'fsq3P8wo1bQwkPgXoTJP56jjL/1bUtKoWC5BYf2RGYhvDKg='
         }
     }
     let limit = 5
     let [lat, lon]= await getCoords();
-    let businessType = 'coffee';
+
+    let business = 'coffee';'hotel';'restaurant';'market';
     let response = await fetch(`https://api.foursquare.com/v3/places/search?&query=${business}&limit=${limit}&ll=${lat}%2C${lon}`, options)
-    let data = await response.text()
-    let parsedData = JSON.parse(data)
-    let businesses = parsedData.results
+    let data = await response.text();
+    let parsedData = JSON.parse(data);
+    let businesses = parsedData.results;
 
     console.log(businesses)
+
 }
+
+// Search API item
+

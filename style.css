@@ -1,2 +1,8 @@
 #map { height: 800px; 
 background-color: bisque;}
+
+#selectorSection {
+    height: 80px; 
+    background-color: azure;
+
+}
